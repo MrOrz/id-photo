@@ -1,5 +1,5 @@
 require('./common.src.js');
 
-window.renderFn = (val) => {
-  console.log(val);
+window.renderFn = (originalImg, outputCanvas, map) => {
+  console.log(map);
 };
