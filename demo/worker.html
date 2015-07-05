@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas redraw</title>
+</head>
+<body>
+  <div style="position: fixed; left: 0; top: 0;">
+    <label>
+      Contrast: <input type="range" id="slider" min="0" max="127" value="0">
+    </label>
+  </div>
+  <canvas id="output"></canvas>
+  <canvas id="input" style="display: none;"></canvas>
+  <script src="common.js"></script>
+  <script src="worker.js"></script>
+</body>
+</html>
