@@ -1,0 +1,55 @@
+{
+  "name": "id-photo",
+  "version": "0.0.1",
+  "description": "ROC 身分證照片產生器",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --config config/webpack.js",
+    "clean": "rm -rf build",
+    "build": "webpack --config=config/webpack.js --progress",
+    "// deploy": "Depoly steps, which creates a branch named _deploy, builds and commits compiled project, and pushes to Heroku.",
+    "deploy:init": "git checkout -b _deploy && echo '!build' >> .gitignore",
+    "deploy:commit": "_COMMIT_MSG=$(git log -n 1 --pretty=format:'%h - %s') && git add .gitignore build && git commit -m \"$_COMMIT_MSG\"",
+    "deploy:push": "git push --force origin _deploy:gh-pages",
+    "deploy:cleanup": "git checkout - && git branch -D _deploy",
+    "deploy": "npm run deploy:init && npm run clean && NODE_ENV=production npm run build && npm run deploy:commit && npm run deploy:push && npm run deploy:cleanup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MrOrz/id-photo.git"
+  },
+  "keywords": [
+    "身分證",
+    "大頭照",
+    "身分證照片"
+  ],
+  "author": "MrOrz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MrOrz/id-photo/issues"
+  },
+  "homepage": "https://github.com/MrOrz/id-photo",
+  "devDependencies": {
+    "autoprefixer-core": "^5.1.11",
+    "babel-core": "^5.4.7",
+    "babel-loader": "^5.1.3",
+    "css-loader": "^0.14.2",
+    "csswring": "^3.0.5",
+    "exports-loader": "^0.6.2",
+    "expose-loader": "^0.7.0",
+    "extract-text-webpack-plugin": "^0.8.0",
+    "file-loader": "^0.8.4",
+    "material-ui": "^0.8.0",
+    "node-libs-browser": "^0.5.2",
+    "normalize.css": "^3.0.3",
+    "postcss-loader": "^0.4.3",
+    "react": "^0.13.3",
+    "react-inlinesvg": "^0.4.1",
+    "react-tap-event-plugin": "^0.1.7",
+    "socket.io-client": "MrOrz/socket.io-client",
+    "style-loader": "^0.12.3",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.9.9",
+    "webpack-dev-server": "^1.9.0"
+  }
+}
