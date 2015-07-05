@@ -1,5 +1,7 @@
 require('./common.src.js');
 
-window.renderFn = (originalImg, outputCanvas, map) => {
+window.renderInit = () => {}
+
+window.renderFn = (map) => {
   console.log(map);
 };

@@ -1,12 +1,30 @@
 var slider = document.getElementById('slider'),
-    canvas = document.getElementById('canvas'),
+    inputCanvas = document.getElementById('input'),
+    outputCanvas = document.getElementById('output'),
     loaderImg = new Image();
 
 
 loaderImg.onload = () => {
-  canvas.width = loaderImg.width;
-  canvas.height = loaderImg.height;
-  canvas.getContext('2d').drawImage(loaderImg, 0, 0);
+  // Put <img> pixels into inputCanvas
+  //
+  var {width, height} = loaderImg;
+  inputCanvas.width = width;
+  inputCanvas.height = height;
+  inputCanvas.getContext('2d').drawImage(loaderImg, 0, 0);
+
+  // Setup outputCanvas
+  //
+  outputCanvas.width = width;
+  outputCanvas.height = height;
+
+  // Initilaize renderer and do render
+  window.renderInit(inputCanvas, outputCanvas);
+
+  var map = new Uint8ClampedArray(256);
+  for(let i = 0; i<256; i+=1){
+    map[i] = i;
+  }
+  window.renderFn(map);
 };
 
 loaderImg.src = './demo.jpg';
@@ -26,6 +44,6 @@ slider.addEventListener('input', () => {
   }
 
   console.time('RenderFn');
-  window.renderFn(loaderImg, canvas, map);
+  window.renderFn(map);
   console.timeEnd('RenderFn');
 });
