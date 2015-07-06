@@ -20,7 +20,7 @@ loaderImg.onload = () => {
   // Initilaize renderer and do render
   window.renderInit(inputCanvas, outputCanvas);
 
-  var map = new Uint8ClampedArray(256);
+  var map = new Uint8Array(256);
   for(let i = 0; i<256; i+=1){
     map[i] = i;
   }
@@ -31,7 +31,7 @@ loaderImg.src = './demo.jpg';
 
 slider.addEventListener('input', () => {
   var sliderValue = +slider.value,
-      map = new Uint8ClampedArray(256),
+      map = new Uint8Array(256),
       outputIncrement = 255/(255 - 2*sliderValue);
 
   console.log('slider changed to', sliderValue);
