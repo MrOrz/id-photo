@@ -4,12 +4,12 @@ var util = require('./webgl-utils.js');
 var gl, // Output canvas webgl context
     program, // Output canvas program
     vertexShaderSrc,
-    fragmentShaderSrc;
+    fragmentShaderSrc,
+    mapLocation;
 
 vertexShaderSrc = `
   // -1 ~ 1
   attribute vec2 a_position;
-
   varying vec2 v_texCoord;
 
   void main() {
@@ -23,10 +23,15 @@ fragmentShaderSrc = `
 
   varying vec2 v_texCoord;
   uniform sampler2D u_image;
-  uniform int map[256];
+  uniform int u_map[256];
 
   void main() {
-     gl_FragColor = texture2D(u_image, v_texCoord);
+    vec4 color = texture2D(u_image, v_texCoord);
+    color[0] = float(u_map[int(255.0*color[0])])/255.0;
+    color[1] = float(u_map[int(255.0*color[1])])/255.0;
+    color[2] = float(u_map[int(255.0*color[2])])/255.0;
+
+    gl_FragColor = color;
   }
 `;
 
@@ -68,9 +73,13 @@ window.renderInit = (inputCanvas, outputCanvas) => {
      1.0,  1.0
   ]), gl.STATIC_DRAW);
 
+  mapLocation = gl.getUniformLocation(program, "u_map");
 }
 
 window.renderFn = (map) => {
+  // Load map to GPU
+  gl.uniform1iv(mapLocation, map);
+
   // Draw the rectangle.
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 };
